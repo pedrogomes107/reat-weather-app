@@ -8,6 +8,10 @@ Responsive website in which it is possible to obtain the 5-day weather forecast 
 
 #### `npm install`
 
+#### `npm install tailwindcss @tailwindcss/vite`
+
+#### `npm install lucide-react`
+
 ## Run App Locally:
 
 #### `npm run dev`
