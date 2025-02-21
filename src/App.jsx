@@ -10,6 +10,8 @@ function getDate(future) {
   return `${string_date}`;
 }
 
+const isEmptyObject = (obj) => Object.keys(obj).length === 0;
+
 function App() {
   const API_key = "8bd6f64b95fe345767d440fd333532b2";
   const [loading, setLoading] = useState(false);
@@ -57,7 +59,7 @@ function App() {
         </p>
         <form
           onSubmit={handleSearch}
-          className="relative max-w-xl w-full flex-center"
+          className="relative max-w-xs w-full flex-center"
         >
           <label className="input shadow-md flex items-center gap-2">
             <Search size={"24"} />
@@ -68,37 +70,37 @@ function App() {
             />
           </label>
         </form>
-        <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {!loading && fivedayforecast && (
+        <div className="max-w-2xs gap-3">
+          {!loading && !isEmptyObject(fivedayforecast) && (
             <ul className="my-3">
               <li>
-                <div className="flex justify-around">
+                <div className="flex justify-between">
                   <p>{getDate(0)}</p>
-                  <p>{fivedayforecast[0]}</p>
+                  <p>{fivedayforecast[0]} ºC</p>
                 </div>
               </li>
               <li>
-                <div className="flex justify-around">
+                <div className="flex justify-between">
                   <p>{getDate(1)}</p>
-                  <p>{fivedayforecast[1]}</p>
+                  <p>{fivedayforecast[1]} ºC</p>
                 </div>
               </li>
               <li>
-                <div className="flex justify-around">
+                <div className="flex justify-between">
                   <p>{getDate(2)}</p>
-                  <p>{fivedayforecast[2]}</p>
+                  <p>{fivedayforecast[2]} ºC</p>
                 </div>
               </li>
               <li>
-                <div className="flex justify-around">
+                <div className="flex justify-between">
                   <p>{getDate(3)}</p>
-                  <p>{fivedayforecast[3]}</p>
+                  <p>{fivedayforecast[3]} ºC</p>
                 </div>
               </li>
               <li>
-                <div className="flex justify-around">
+                <div className="flex justify-between">
                   <p>{getDate(4)}</p>
-                  <p>{fivedayforecast[4]}</p>
+                  <p>{fivedayforecast[4]} ºC</p>
                 </div>
               </li>
             </ul>
