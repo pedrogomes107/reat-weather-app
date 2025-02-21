@@ -12,6 +12,10 @@ Responsive website in which it is possible to obtain the 5-day weather forecast 
 
 #### `npm install lucide-react`
 
+#### `npm install react-hot-toast`
+
+#### `npm install --save react-spinners`
+
 ## Run App Locally:
 
 #### `npm run dev`

@@ -1,5 +1,7 @@
 import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { FadeLoader } from "react-spinners";
 
 function getDate(future) {
   const d = new Date();
@@ -10,7 +12,7 @@ function getDate(future) {
 
 function App() {
   const API_key = "8bd6f64b95fe345767d440fd333532b2";
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [fivedayforecast, setfivedayforecast] = useState({});
 
   const searchCity = async (city) => {
@@ -23,26 +25,23 @@ function App() {
 
       let updatedValue = {};
       updatedValue = [
-        { id: 1, temp: data.list[0].main.temp },
-        { id: 2, temp: data.list[8].main.temp },
-        { id: 3, temp: data.list[16].main.temp },
-        { id: 4, temp: data.list[24].main.temp },
-        { id: 5, temp: data.list[32].main.temp },
+        data.list[0].main.temp,
+        data.list[8].main.temp,
+        data.list[16].main.temp,
+        data.list[24].main.temp,
+        data.list[32].main.temp,
       ];
       setfivedayforecast((fivedayforecast) => ({
         ...fivedayforecast,
         ...updatedValue,
       }));
     } catch (error) {
-      console.log(error);
+      toast.error("City not found");
+      setfivedayforecast({});
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    searchCity("Lisbon");
-  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -50,40 +49,61 @@ function App() {
   };
 
   return (
-    <div className="bg-[#faf9fb] p-10 flex-1">
+    <div className="p-10 flex-1">
       <div className="max-w-screen-lg mx-auto">
-        <form onSubmit={handleSearch}>
+        <h1 className="font-bold text-3xl md:text-5xl mt-4">Temperature</h1>
+        <p className="text-slate-500 font-semibold ml-1 my-2 text-sm tracking-tight">
+          Next 5 days
+        </p>
+        <form
+          onSubmit={handleSearch}
+          className="relative max-w-xl w-full flex-center"
+        >
           <label className="input shadow-md flex items-center gap-2">
             <Search size={"24"} />
             <input
               type="text"
               className="text-sm md:text-md grow"
-              placeholder="What do you want to cook today?"
+              placeholder="What city are you looking for?"
             />
           </label>
         </form>
-
-        <h1 className="font-bold text-3xl md:text-5xl mt-4">
-          Recommended Recipes
-        </h1>
-        <p className="text-slate-500 font-semibold ml-1 my-2 text-sm tracking-tight">
-          Popular choices
-        </p>
-
         <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {!loading && <p>{getDate(0)}</p>}
-
-          {loading &&
-            [...Array(9)].map((_, index) => (
-              <div key={index} className="flex flex-col gap-4 w-full">
-                <div className="skeleton h-32 w-full"></div>
-                <div className="flex justify-between">
-                  <div className="skeleton h-4 w-28"></div>
-                  <div className="skeleton h-4 w-24"></div>
+          {!loading && fivedayforecast && (
+            <ul className="my-3">
+              <li>
+                <div className="flex justify-around">
+                  <p>{getDate(0)}</p>
+                  <p>{fivedayforecast[0]}</p>
                 </div>
-                <div className="skeleton h-4 w-1/2"></div>
-              </div>
-            ))}
+              </li>
+              <li>
+                <div className="flex justify-around">
+                  <p>{getDate(1)}</p>
+                  <p>{fivedayforecast[1]}</p>
+                </div>
+              </li>
+              <li>
+                <div className="flex justify-around">
+                  <p>{getDate(2)}</p>
+                  <p>{fivedayforecast[2]}</p>
+                </div>
+              </li>
+              <li>
+                <div className="flex justify-around">
+                  <p>{getDate(3)}</p>
+                  <p>{fivedayforecast[3]}</p>
+                </div>
+              </li>
+              <li>
+                <div className="flex justify-around">
+                  <p>{getDate(4)}</p>
+                  <p>{fivedayforecast[4]}</p>
+                </div>
+              </li>
+            </ul>
+          )}
+          {loading && <FadeLoader className="content-center my-3" />}
         </div>
       </div>
     </div>
