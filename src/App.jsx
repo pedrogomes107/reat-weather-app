@@ -3,9 +3,9 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { FadeLoader } from "react-spinners";
 
-function getDate(future) {
+function getDate(future_day) {
   const d = new Date();
-  d.setDate(d.getDate() + future);
+  d.setDate(d.getDate() + future_day);
   const string_date = d.toLocaleDateString();
   return `${string_date}`;
 }
@@ -68,6 +68,10 @@ function App() {
               className="text-sm md:text-md grow"
               placeholder="What city are you looking for?"
             />
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2">
+              {" "}
+              Search{" "}
+            </button>
           </label>
         </form>
         <div className="max-w-2xs gap-3">
